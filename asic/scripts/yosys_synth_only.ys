@@ -1,0 +1,29 @@
+# Yosys syntax/elaboration smoke test without PDK mapping.
+read_verilog -sv rtl/common/adder.sv
+read_verilog -sv rtl/common/alu.sv
+read_verilog -sv rtl/common/alu_control.sv
+read_verilog -sv rtl/common/branch_unit.sv
+read_verilog -sv rtl/common/main_control.sv
+read_verilog -sv rtl/common/imm_generator.sv
+read_verilog -sv rtl/common/program_counter.sv
+read_verilog -sv rtl/common/register_file.sv
+read_verilog -sv rtl/common/forwarding_unit.sv
+read_verilog -sv rtl/common/hazard_detection_unit.sv
+read_verilog -sv rtl/common/if_id_reg.sv
+read_verilog -sv rtl/common/id_ex_reg.sv
+read_verilog -sv rtl/common/ex_mem_reg.sv
+read_verilog -sv rtl/common/mem_wb_reg.sv
+read_verilog -sv rtl/common/writeback_stage.sv
+read_verilog -sv rtl/common/fetch_stage.sv
+read_verilog -sv rtl/common/execute_stage.sv
+read_verilog -sv rtl/common/decode_stage.sv
+read_verilog -sv rtl/common/datapath.sv
+read_verilog -sv rtl/common/instruction_memory_fpga.sv
+read_verilog -sv rtl/common/ipu_fpga.sv
+read_verilog -sv rtl/common/evpix_ml_feature_extractor.sv
+read_verilog -sv rtl/common/evpix_tinyml_classifier.sv
+read_verilog -sv rtl/asic/rv32i_core_asic_extmem.sv
+read_verilog -sv rtl/asic/evpix_asic_core_top.sv
+hierarchy -top evpix_asic_core_top
+proc; opt; memory; opt
+stat
