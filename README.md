@@ -10,22 +10,22 @@
 
 <p align="center">
   <a href="#architecture">
-    <img src="https://img.shields.io/badge/🏗️_Architecture-4CAF50?style=for-the-badge" alt="Architecture">
+    <img src="https://img.shields.io/badge/Architecture-2E3440?style=for-the-badge&logo=verilog&logoColor=white">
   </a>
   <a href="#features">
-    <img src="https://img.shields.io/badge/✨_Features-2196F3?style=for-the-badge" alt="Features">
+    <img src="https://img.shields.io/badge/Features-5E81AC?style=for-the-badge">
   </a>
   <a href="#fpga-implementation">
-    <img src="https://img.shields.io/badge/⚡_FPGA-FF9800?style=for-the-badge" alt="FPGA">
+    <img src="https://img.shields.io/badge/FPGA_Implementation-A3BE8C?style=for-the-badge">
   </a>
   <a href="#asic-implementation">
-    <img src="https://img.shields.io/badge/🔧_ASIC-9C27B0?style=for-the-badge" alt="ASIC">
+    <img src="https://img.shields.io/badge/ASIC_Implementation-B48EAD?style=for-the-badge">
   </a>
   <a href="#results">
-    <img src="https://img.shields.io/badge/📊_Results-E91E63?style=for-the-badge" alt="Results">
+    <img src="https://img.shields.io/badge/Results-D08770?style=for-the-badge">
   </a>
   <a href="#getting-started">
-    <img src="https://img.shields.io/badge/🚀_Getting_Started-00BCD4?style=for-the-badge" alt="Getting Started">
+    <img src="https://img.shields.io/badge/Getting_Started-88C0D0?style=for-the-badge">
   </a>
 </p>
 
@@ -67,10 +67,11 @@ The system was prototyped on the **Digilent Basys-3 AMD Artix-7 FPGA** with an *
 
 The design was synthesized through the open-source **OpenROAD flow** targeting **SkyWater 130-nm CMOS**, producing a DRC-clean, LVS-equivalent GDSII layout across **30.25 mm²**, operating at **100 MHz** with **3.24 mW** total power.
 
-> **Thesis:** Bachelor of Science in Electronics and Telecommunication Engineering  
-> **Institution:** Chittagong University of Engineering & Technology (CUET)  
-> **Author:** Ahasan Ullah Khalid (2008051)  
-> **Supervisor:** Md. Farhad Hossain, Assistant Professor, ETE Department
+**Thesis:** Bachelor of Science (B.Sc.)  
+**Department:** Electronics and Telecommunication Engineering  
+**Institution:** Chittagong University of Engineering & Technology (CUET)  
+**Author:** Ahasan Ullah Khalid (2008051)  
+**Supervisor:** Md. Farhad Hossain, Assistant Professor, Department of ETE
 
 ---
 
@@ -79,7 +80,7 @@ The design was synthesized through the open-source **OpenROAD flow** targeting *
 ### Top-Level Architecture
 
 <p align="center">
-  <img src="images/top_level_architecture.png" alt="Top-Level Architecture" width="700"/>
+  <img src="images/soc_top_2.png" alt="Top-Level Architecture" width="700"/>
 </p>
 
 The EVPIX-RV32 system is a heterogeneous vision SoC that combines a general-purpose 32-bit RISC-V processor with dedicated image-processing hardware. The architecture uses a Harvard-style memory organization with separate instruction and data memories, plus a multi-port data memory that supports concurrent CPU and IPU access.
@@ -99,7 +100,7 @@ The EVPIX-RV32 system is a heterogeneous vision SoC that combines a general-purp
 ### Detailed System Block Diagram
 
 <p align="center">
-  <img src="images/detailed_architecture.png" alt="Detailed Architecture" width="750"/>
+  <img src="images/soc_top_3.png" alt="Detailed Architecture" width="750"/>
 </p>
 
 The system interconnect (AXI Bus) enables communication between the RV32I core, IPU, TinyML accelerator, unified data memory, and peripheral interfaces. The camera module feeds raw pixel data through the OV7670 DVP interface, while the VGA display controller outputs processed frames with real-time performance overlays.
@@ -124,7 +125,7 @@ The system interconnect (AXI Bus) enables communication between the RV32I core, 
 ### RV32I 5-Stage Pipeline
 
 <p align="center">
-  <img src="images/5stage_pipeline.png" alt="5-Stage Pipeline" width="700"/>
+  <img src="images/pipeline.png" alt="5-Stage Pipeline" width="700"/>
 </p>
 
 The processor implements a classic five-stage RISC pipeline with full hazard detection and data forwarding:
@@ -148,34 +149,34 @@ The pipeline achieves near-ideal IPC for sequential code with single-cycle branc
 #### Individual Stage Diagrams
 
 <p align="center">
-  <img src="images/if_stage.png" alt="IF Stage" width="500"/>
+  <img src="images/fetch1.png" alt="IF Stage" width="500"/>
   <br/><em>Instruction Fetch (IF) Stage</em>
 </p>
 
 <p align="center">
-  <img src="images/id_stage.png" alt="ID Stage" width="500"/>
+  <img src="images/decode.png" alt="ID Stage" width="500"/>
   <br/><em>Instruction Decode (ID) Stage</em>
 </p>
 
 <p align="center">
-  <img src="images/ex_stage.png" alt="EX Stage" width="500"/>
+  <img src="images/execute.png" alt="EX Stage" width="500"/>
   <br/><em>Execute (EX) Stage</em>
 </p>
 
 <p align="center">
-  <img src="images/mem_stage.png" alt="MEM Stage" width="500"/>
+  <img src="images/mem.png" alt="MEM Stage" width="500"/>
   <br/><em>Memory Access (MEM) Stage</em>
 </p>
 
 <p align="center">
-  <img src="images/wb_stage.png" alt="WB Stage" width="500"/>
+  <img src="images/wb.png" alt="WB Stage" width="500"/>
   <br/><em>Write Back (WB) Stage</em>
 </p>
 
 ### Image Processing Unit (IPU)
 
 <p align="center">
-  <img src="images/ipu_architecture.png" alt="IPU Architecture" width="600"/>
+  <img src="images/ipu_internal_architecture.png" alt="IPU Architecture" width="600"/>
 </p>
 
 The IPU is a dedicated hardware accelerator controlled through custom R-type instructions. It features:
@@ -216,7 +217,7 @@ The 64KB unified data memory uses dual-port BRAM supporting concurrent CPU load/
 #### OV7670 Camera Module
 
 <p align="center">
-  <img src="images/ov7670_camera.png" alt="OV7670 Camera" width="300"/>
+  <img src="images/ov7670.png" alt="OV7670 Camera" width="300"/>
 </p>
 
 The OV7670 CMOS camera module connects via parallel DVP interface with:
@@ -228,7 +229,7 @@ The OV7670 CMOS camera module connects via parallel DVP interface with:
 #### VGA Display Interface
 
 <p align="center">
-  <img src="images/vga_interface.png" alt="VGA Interface" width="400"/>
+  <img src="images/vga.png" alt="VGA Interface" width="400"/>
 </p>
 
 The Basys-3 VGA interface provides:
@@ -275,7 +276,7 @@ The `funct3` field selects the IPU operation type (START, STATUS, RESULT, PERF),
 ### Basys-3 Board Setup
 
 <p align="center">
-  <img src="images/basys3_board.png" alt="Basys-3 Board" width="600"/>
+  <img src="images/basys32.png" alt="Basys-3 Board" width="600"/>
 </p>
 
 The **Digilent Basys-3** development board features:
@@ -290,7 +291,7 @@ The **Digilent Basys-3** development board features:
 #### Board Component Layout
 
 <p align="center">
-  <img src="images/basys3_callouts.png" alt="Basys-3 Callouts" width="650"/>
+  <img src="images/basys3_rm.png" alt="Basys-3 Callouts" width="650"/>
 </p>
 
 | Callout | Component | Use in EVPIX-RV32 |
@@ -315,7 +316,7 @@ The **Digilent Basys-3** development board features:
 ### Physical Prototype Setup
 
 <p align="center">
-  <img src="images/fpga_prototype_setup.png" alt="FPGA Prototype" width="600"/>
+  <img src="images/full_setup.jpg" alt="FPGA Prototype" width="600"/>
 </p>
 
 The physical prototype connects:
