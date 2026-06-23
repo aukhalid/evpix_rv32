@@ -538,10 +538,6 @@ GDSII for Fabrication
 
 #### Routing Results
 
-<p align="center">
-  <img src="images/zoomed_in_layout.png" alt="Routing Result" width="500"/>
-</p>
-
 | Metric | Value |
 |--------|-------|
 | Total Wirelength | **2.354 meters** |
@@ -564,7 +560,7 @@ GDSII for Fabrication
 #### Power Analysis
 
 <p align="center">
-  <img src="images/asic_heat_map_new.png" alt="ASIC Power Heatmap" width="500"/>
+  <img src="images/asic_heat_map_2_new.png" alt="ASIC Power Heatmap" width="500"/>
 </p>
 
 | Metric | Value |
@@ -596,11 +592,6 @@ GDSII for Fabrication
 <p align="center">
   <img src="images/asic_without_power_ground_new.png" alt="Full-Chip GDSII" width="500"/>
   <br/><em>Full-chip GDSII layout with core area, without power, ground network, and clock tree</em>
-</p>
-
-<p align="center">
-  <img src="images/zoomed_in_layout.png" alt="Core Zoom" width="500"/>
-  <br/><em>Zoomed-in core layout showing standard cell placement density</em>
 </p>
 
 <p align="center">
@@ -720,22 +711,11 @@ evpix_rv32/
 │   ├── sdc/                      # Timing constraints
 │   ├── gdsii/                    # Final GDSII layout
 │   └── reports/                  # Synthesis, timing, power reports
-├── firmware/                     # Software programs
-│   ├── bist/                     # Built-In Self-Test programs
-│   ├── ipu_tests/                # IPU operation test programs
-│   └── tinyml_model/             # Quantized finger-count model
 ├── images/                       # Documentation images
-│   ├── architecture/             # Architecture diagrams
-│   ├── fpga/                     # FPGA photos and screenshots
-│   ├── asic/                     # ASIC layout views
-│   └── results/                  # Performance result plots
 ├── docs/                         # Documentation
 │   ├── thesis.pdf                # Full thesis document
 │   └── presentations/            # Defense slides
 ├── tools/                        # Helper scripts
-│   ├── hex_gen.py                # Memory initialization generator
-│   └── kernel_gen.py             # Convolution kernel generator
-├── Makefile                      # Build automation
 ├── README.md                     # This file
 └── LICENSE                       # Apache 2.0 License
 ```
