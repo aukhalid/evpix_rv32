@@ -463,7 +463,7 @@ JALR X30 00000060  00000060  PASS
 ### OpenROAD Flow
 
 <p align="center">
-  <img src="images/openroad_flow.png" alt="OpenROAD Flow" width="600"/>
+  <img src="images/asic_flow.png" alt="OpenROAD Flow" width="600"/>
 </p>
 
 The ASIC implementation uses the fully open-source **OpenROAD** EDA flow with the **SkyWater 130-nm CMOS PDK**:
