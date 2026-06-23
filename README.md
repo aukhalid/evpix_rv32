@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>A custom 5-Stage edge-vision processor combining RISC-V programmability with hardware-accelerated Image Processing Unit and TinyML Inference. Verified it with BIST Testbenches, implemented in real hardware, on Digilent Basys-3 AMD Artix-7 FPGA and finally full RTL-to-GDSII SkyWater 130-nm CMOS ASIC was implemented. </strong>
+  <strong>A custom 5-Stage edge-vision processor combining RISC-V programmability with hardware-accelerated Image Processing Unit and TinyML Inference. Verified it with BIST Testbenches, prototyped in real hardware, on Digilent Basys-3 AMD Artix-7 FPGA and finally full RTL-to-GDSII SkyWater 130-nm CMOS ASIC was implemented. </strong>
 </p>
 
 <p align="center">
@@ -418,7 +418,12 @@ JALR X30 00000060  00000060  PASS
 #### Real-Time Image Processing Results
 
 <p align="center">
-  <img src="images/ipu_results.png" alt="IPU Results" width="700"/>
+  <img src="images/ipu_sobel.jpg" alt="IPU Results" width="700"/>
+</p>
+
+
+<p align="center">
+  <img src="images/ipu_gray.jpg" alt="IPU Results" width="700"/>
 </p>
 
 | Mode | Left Panel (Source) | Right Panel (Processed) |
@@ -431,7 +436,11 @@ JALR X30 00000060  00000060  PASS
 #### TinyML Finger Counting Results
 
 <p align="center">
-  <img src="images/tinyml_results.png" alt="TinyML Results" width="700"/>
+  <img src="images/ml2.jpg" alt="TinyML Results" width="700"/>
+</p>
+
+<p align="center">
+  <img src="images/ml4.jpg" alt="TinyML Results" width="700"/>
 </p>
 
 | Detection | Fingers Counted | Accuracy |
@@ -442,8 +451,8 @@ JALR X30 00000060  00000060  PASS
 | (d) 5 Fingers Detected | 5 | Real-time |
 
 **TinyML Performance Metrics:**
-- Overall Classification Accuracy: **70%** (7/10 correct)
-- False Positive Rate: 20%
+- Overall Classification Accuracy: **80%** (8/10 correct)
+- False Positive Rate: 10%
 - False Negative Rate: 10%
 - Classification Latency: 1 frame (real-time, no buffering)
 
@@ -486,7 +495,7 @@ GDSII for Fabrication
 #### Technology Selection: SkyWater 130nm
 
 <p align="center">
-  <img src="images/skywater_pdk.png" alt="SkyWater PDK" width="400"/>
+  <img src="images/sky130.png" alt="SkyWater PDK" width="400"/>
 </p>
 
 **Why SkyWater 130nm?**
@@ -511,10 +520,6 @@ GDSII for Fabrication
 
 #### Floorplan & Die Statistics
 
-<p align="center">
-  <img src="images/floorplan_die.png" alt="Floorplan and Die" width="500"/>
-</p>
-
 | Metric | Value |
 |--------|-------|
 | Die Width × Height | 5500.00 × 5500.00 µm |
@@ -534,7 +539,7 @@ GDSII for Fabrication
 #### Routing Results
 
 <p align="center">
-  <img src="images/routing_result.png" alt="Routing Result" width="500"/>
+  <img src="images/zoomed_in_layout.png" alt="Routing Result" width="500"/>
 </p>
 
 | Metric | Value |
@@ -559,7 +564,7 @@ GDSII for Fabrication
 #### Power Analysis
 
 <p align="center">
-  <img src="images/asic_power_heatmap.png" alt="ASIC Power Heatmap" width="500"/>
+  <img src="images/asic_heat_map_new.png" alt="ASIC Power Heatmap" width="500"/>
 </p>
 
 | Metric | Value |
@@ -583,28 +588,29 @@ GDSII for Fabrication
 ### GDSII Layout Views
 
 <p align="center">
-  <img src="images/gdsii_full_chip.png" alt="Full-Chip GDSII" width="500"/>
+  <img src="images/asic_new.png" alt="Full-Chip GDSII" width="500"/>
   <br/><em>Full-chip GDSII layout with core area, IO ring, power network, and clock tree</em>
 </p>
 
+
 <p align="center">
-  <img src="images/gdsii_core_zoom.png" alt="Core Zoom" width="500"/>
+  <img src="images/asic_without_power_ground_new.png" alt="Full-Chip GDSII" width="500"/>
+  <br/><em>Full-chip GDSII layout with core area, without power, ground network, and clock tree</em>
+</p>
+
+<p align="center">
+  <img src="images/zoomed_in_layout.png" alt="Core Zoom" width="500"/>
   <br/><em>Zoomed-in core layout showing standard cell placement density</em>
 </p>
 
 <p align="center">
-  <img src="images/gdsii_transistor_zoom.png" alt="Transistor Zoom" width="500"/>
+  <img src="images/detailed_transistor_layout_core.png" alt="Transistor Zoom" width="500"/>
   <br/><em>Transistor-level zoom of standard cell implementation</em>
 </p>
 
 <p align="center">
-  <img src="images/gdsii_io_right.png" alt="I/O Right Side" width="500"/>
+  <img src="images/asic_io_right_new.png" alt="I/O Right Side" width="500"/>
   <br/><em>Right-side I/O pad ring with signal, power, and ground pads</em>
-</p>
-
-<p align="center">
-  <img src="images/gdsii_routing_detail.png" alt="Routing Detail" width="500"/>
-  <br/><em>Detailed routing view showing metal interconnect layers</em>
 </p>
 
 ---
@@ -836,10 +842,12 @@ If you use EVPIX-RV32 in your research, please cite:
 
 ## 🙏 Acknowledgments
 
-- **Supervisor:** Md. Farhad Hossain, Assistant Professor, ETE Department, CUET
-- **Institution:** Chittagong University of Engineering & Technology (CUET)
-- **Open-Source Community:** RISC-V International, OpenROAD Project, SkyWater PDK, YosysHQ
-- **Tools:** Xilinx Vivado, Digilent Basys-3, OpenLane, Magic, KLayout
+- **Department:** Department of Electronics & Telecommunication Engineering  
+- **Supervisor:** Md. Farhad Hossain, Assistant Professor, ETE Department, CUET  
+- **Specal Thanks:** Arif Istiaque, Assistant Professor, ETE Department, CUET  
+- **Institution:** Chittagong University of Engineering & Technology (CUET)  
+- **Open-Source Community:** RISC-V International, OpenROAD Project, SkyWater PDK, YosysHQ  
+- **Tools:** Xilinx Vivado, Digilent Basys-3 FPGA, OpenROAD-Flow-Script, Magic, KLayout  
 
 ---
 
