@@ -9,12 +9,24 @@
 </p>
 
 <p align="center">
-  <a href="#architecture">Architecture</a> •
-  <a href="#features">Features</a> •
-  <a href="#fpga-implementation">FPGA</a> •
-  <a href="#asic-implementation">ASIC</a> •
-  <a href="#results">Results</a> •
-  <a href="#getting-started">Getting Started</a>
+  <a href="#architecture">
+    <img src="https://img.shields.io/badge/🏗️ Architecture-4CAF50?style=for-the-badge" alt="Architecture">
+  </a>
+  <a href="#features">
+    <img src="https://img.shields.io/badge/✨ Features-2196F3?style=for-the-badge" alt="Features">
+  </a>
+  <a href="#fpga-implementation">
+    <img src="https://img.shields.io/badge/⚡ FPGA-FF9800?style=for-the-badge" alt="FPGA">
+  </a>
+  <a href="#asic-implementation">
+    <img src="https://img.shields.io/badge/🔧 ASIC-9C27B0?style=for-the-badge" alt="ASIC">
+  </a>
+  <a href="#results">
+    <img src="https://img.shields.io/badge/📊 Results-E91E63?style=for-the-badge" alt="Results">
+  </a>
+  <a href="#getting-started">
+    <img src="https://img.shields.io/badge/🚀 Getting_Started-00BCD4?style=for-the-badge" alt="Getting Started">
+  </a>
 </p>
 
 ---
