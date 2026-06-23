@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>A custom edge-vision processor combining RISC-V programmability with hardware-accelerated image processing and TinyML inference</strong>
+  <strong>A custom 5-Stage edge-vision processor combining RISC-V programmability with hardware-accelerated Image Processing Unit and TinyML Inference. Verified it with BIST Testbenches, implemented in real hardware, on Digilent Basys-3 AMD Artix-7 FPGA and finally full RTL-to-GDSII SkyWater 130-nm CMOS ASIC was implemented. </strong>
 </p>
 
 <p align="center">
