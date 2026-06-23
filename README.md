@@ -241,7 +241,7 @@ The Basys-3 VGA interface provides:
 ### TinyML Accelerator
 
 <p align="center">
-  <img src="images/tinyml_architecture.png" alt="TinyML Architecture" width="600"/>
+  <img src="images/tinyml.png" alt="TinyML Architecture" width="600"/>
 </p>
 
 The TinyML subsystem includes:
@@ -276,7 +276,7 @@ The `funct3` field selects the IPU operation type (START, STATUS, RESULT, PERF),
 ### Basys-3 Board Setup
 
 <p align="center">
-  <img src="images/basys32.png" alt="Basys-3 Board" width="600"/>
+  <img src="images/basys-32.png" alt="Basys-3 Board" width="600"/>
 </p>
 
 The **Digilent Basys-3** development board features:
@@ -362,7 +362,7 @@ The FPGA implementation follows the standard Xilinx Vivado flow:
 #### FPGA Power Consumption
 
 <p align="center">
-  <img src="images/fpga_power.png" alt="FPGA Power" width="400"/>
+  <img src="images/fpga_pwr.png" alt="FPGA Power" width="400"/>
 </p>
 
 | Metric | Value |
@@ -395,7 +395,11 @@ The system supports multiple operating modes controlled by slide switches:
 #### BIST Mode — VGA Output
 
 <p align="center">
-  <img src="images/bist_mode.png" alt="BIST Mode" width="500"/>
+  <img src="images/bist1.jpg" alt="BIST Mode" width="500"/>
+</p>
+
+<p align="center">
+  <img src="images/bist2.jpg" alt="BIST Mode" width="500"/>
 </p>
 
 The hardware BIST mode runs 61 instructions covering all RV32I base instructions and IPU kernels, displaying pass/fail status directly on the VGA monitor:
