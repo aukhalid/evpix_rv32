@@ -1,4 +1,4 @@
-# EVPIX-RV32: 5-Stage Custom RISC-V SoC with Integrated IPU and TinyML Support for Real-Time Edge-Vision AI Acceleration: RTL-to-GDSII Design, Basys-3 Artix-7 FPGA Prototyping, and SkyWater 130-nm CMOS ASIC Implementation. 
+# EVPIX-RV32: 5-Stage Custom RISC-V SoC with Integrated IPU and TinyML Support for Real-Time Edge-Vision AI Acceleration
 
 <p align="center">
   <img src="images/cuet_logo.png" alt="CUET Logo" width="120"/>
