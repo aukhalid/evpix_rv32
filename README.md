@@ -519,7 +519,7 @@ GDSII for Fabrication
 
 
 <p align="center">
-  <img src="images/synth_res.png" alt="OpenROAD Flow" width="750"/>
+  <img src="images/synth_res.png" alt="OpenROAD Flow" width="900"/>
 </p>
 
 #### Floorplan & Die Statistics
@@ -535,7 +535,7 @@ GDSII for Fabrication
 
 
 <p align="center">
-  <img src="images/floorplan_res.png" alt="OpenROAD Flow" width="750"/>
+  <img src="images/floorplan_res.png" alt="OpenROAD Flow" width="900"/>
 </p>
 
 #### Clock Tree Synthesis (TritonCTS)
@@ -549,7 +549,7 @@ GDSII for Fabrication
 
 
 <p align="center">
-  <img src="images/cts_res.png" alt="OpenROAD Flow" width="750"/>
+  <img src="images/cts_res.png" alt="OpenROAD Flow" width="900"/>
 </p>
 
 #### Routing Results
@@ -562,7 +562,7 @@ GDSII for Fabrication
 
 
 <p align="center">
-  <img src="images/routing_res.png" alt="OpenROAD Flow" width="750"/>
+  <img src="images/routing_res.png" alt="OpenROAD Flow" width="900"/>
 </p>
 
 #### Static Timing Analysis (OpenSTA)
@@ -578,7 +578,7 @@ GDSII for Fabrication
 
 
 <p align="center">
-  <img src="images/sta_res.png" alt="OpenROAD Flow" width="750"/>
+  <img src="images/sta_res.png" alt="OpenROAD Flow" width="900"/>
 </p>
 
 &gt; ✅ **Timing closure achieved with positive slack at 62.06 MHz!**
@@ -594,7 +594,7 @@ GDSII for Fabrication
 
 
 <p align="center">
-  <img src="images/power_res.png" alt="OpenROAD Flow" width="750"/>
+  <img src="images/power_res.png" alt="OpenROAD Flow" width="900"/>
 </p>
 
 **Power breakdown:** The design achieves excellent power efficiency for edge-vision applications, with total consumption under 4.0 mW at 62.06 MHz — suitable for battery-powered and energy-harvesting deployments.
@@ -610,7 +610,7 @@ GDSII for Fabrication
 
 
 <p align="center">
-  <img src="images/signoff_res.png" alt="OpenROAD Flow" width="750"/>
+  <img src="images/signoff_res.png" alt="OpenROAD Flow" width="900"/>
 </p>
 
 ### GDSII Layout Views
