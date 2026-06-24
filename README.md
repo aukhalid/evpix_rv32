@@ -580,25 +580,25 @@ GDSII for Fabrication
 
 ### GDSII Layout Views
 
-&lt;p align="center"&gt;
-  &lt;img src="images/asic_new.png" alt="Full-Chip GDSII" width="500"/&gt;
-  &lt;br/&gt;&lt;em&gt;Full-chip GDSII layout with core area, IO ring, power network, and clock tree&lt;/em&gt;
-&lt;/p&gt;
+<p align="center">
+  <img src="images/asic_new.png" alt="Full-Chip GDSII" width="500"/>
+  <br/><em>Full-chip GDSII layout with core area, IO ring, power network, and clock tree</em>
+</p>
 
-&lt;p align="center"&gt;
-  &lt;img src="images/asic_without_power_ground_new.png" alt="Full-Chip GDSII" width="500"/&gt;
-  &lt;br/&gt;&lt;em&gt;Full-chip GDSII layout with core area, without power, ground network, and clock tree&lt;/em&gt;
-&lt;/p&gt;
+<p align="center">
+  <img src="images/asic_without_power_ground_new.png" alt="Full-Chip GDSII" width="500"/>
+  <br/><em>Full-chip GDSII layout with core area, without power, ground network, and clock tree</em>
+</p>
 
-&lt;p align="center"&gt;
-  &lt;img src="images/detailed_transistor_layout_core.png" alt="Transistor Zoom" width="500"/&gt;
-  &lt;br/&gt;&lt;em&gt;Transistor-level zoom of standard cell implementation&lt;/em&gt;
-&lt;/p&gt;
+<p align="center">
+  <img src="images/detailed_transistor_layout_core.png" alt="Transistor Zoom" width="500"/>
+  <br/><em>Transistor-level zoom of standard cell implementation</em>
+</p>
 
-&lt;p align="center"&gt;
-  &lt;img src="images/asic_io_right_new.png" alt="I/O Right Side" width="500"/&gt;
-  &lt;br/&gt;&lt;em&gt;Right-side I/O pad ring with signal, power, and ground pads&lt;/em&gt;
-&lt;/p&gt;
+<p align="center">
+  <img src="images/asic_io_right_new.png" alt="I/O Right Side" width="500"/>
+  <br/><em>Right-side I/O pad ring with signal, power, and ground pads</em>
+</p>
 
 ---
 
