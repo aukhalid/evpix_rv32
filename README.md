@@ -517,6 +517,11 @@ GDSII for Fabrication
 | Sequential Cells (DFFs) | 2,368 (8.9%) |
 | Combinational Cells | 24,323 (91.1%) |
 
+
+<p align="center">
+  <img src="images/synth_res.png" alt="OpenROAD Flow" width="750"/>
+</p>
+
 #### Floorplan & Die Statistics
 
 | Metric | Value |
@@ -528,6 +533,11 @@ GDSII for Fabrication
 | Core Utilization | 33.97% (Target: 32%) |
 | Aspect Ratio | 1.00:1 (square) |
 
+
+<p align="center">
+  <img src="images/floorplan_res.png" alt="OpenROAD Flow" width="750"/>
+</p>
+
 #### Clock Tree Synthesis (TritonCTS)
 
 | Metric | Value |
@@ -537,6 +547,11 @@ GDSII for Fabrication
 | Minimum Clock Latency | 1.0630 ns |
 | Clock Buffers Inserted | 464 |
 
+
+<p align="center">
+  <img src="images/cts_res.png" alt="OpenROAD Flow" width="750"/>
+</p>
+
 #### Routing Results
 
 | Metric | Value |
@@ -544,6 +559,11 @@ GDSII for Fabrication
 | Total Wirelength | **1,312,842 µm (1.3128 m)** |
 | Routing Layers Used | M1 - M5 |
 | Final DRC Violations | **0 (CLEAN)** |
+
+
+<p align="center">
+  <img src="images/routing_res.png" alt="OpenROAD Flow" width="750"/>
+</p>
 
 #### Static Timing Analysis (OpenSTA)
 
@@ -556,6 +576,11 @@ GDSII for Fabrication
 | Setup Violations | 0 |
 | Hold Violations | 0 |
 
+
+<p align="center">
+  <img src="images/sta_res.png" alt="OpenROAD Flow" width="750"/>
+</p>
+
 &gt; ✅ **Timing closure achieved with positive slack at 62.06 MHz!**
 
 #### Power Analysis
@@ -567,6 +592,11 @@ GDSII for Fabrication
 | Switching Power | 1,610.000 µW |
 | **Total Power Consumption** | **3.760 mW** |
 
+
+<p align="center">
+  <img src="images/power_res.png" alt="OpenROAD Flow" width="750"/>
+</p>
+
 **Power breakdown:** The design achieves excellent power efficiency for edge-vision applications, with total consumption under 4.0 mW at 62.06 MHz — suitable for battery-powered and energy-harvesting deployments.
 
 ### Physical Verification Signoff
@@ -577,6 +607,11 @@ GDSII for Fabrication
 | **LVS** | ✅ EQUIVALENT | Netlist matches layout |
 | **Antenna Check** | ✅ PASS | 0 violations |
 | **Metal Density** | ✅ COMPLIANT | All layers within SKY130 limits |
+
+
+<p align="center">
+  <img src="images/signoff_res.png" alt="OpenROAD Flow" width="750"/>
+</p>
 
 ### GDSII Layout Views
 
@@ -657,6 +692,14 @@ GDSII for Fabrication
 | Eyeriss | 65nm | — | None | CNN | No | None |
 | TinyVers | 22nm | 2-stg+NPU | None | Reconf. NPU | No | None |
 | Commercial Edge AI | 40-90nm | Cortex-M | None | NPU | No | None |
+
+<p align="center">
+  <img src="images/half_comp.png" alt="I/O Right Side" width="950"/>
+</p>
+
+<p align="center">
+  <img src="images/half2_comp.png" alt="I/O Right Side" width="950"/>
+</p>
 
 ---
 
