@@ -65,7 +65,7 @@
 
 The system was prototyped on the **Digilent Basys-3 AMD Artix-7 FPGA** with an **OV7670 camera** and dual-region VGA display, sustaining **60 FPS** with zero frame drops. A hardware Built-In Self-Test (BIST) mode runs 61 instructions and shows pass/fail results on the VGA monitor, while a TinyML finger-counting demo validates lightweight neural inference on the platform.
 
-The design was synthesized through the open-source **OpenROAD flow** targeting **SkyWater 130-nm CMOS**, producing a DRC-clean, LVS-equivalent GDSII layout across **30.25 mm²**, operating at **100 MHz** with **3.24 mW** total power.
+The design was synthesized through the open-source **OpenROAD flow** targeting **SkyWater 130-nm CMOS**, producing a DRC-clean, LVS-equivalent GDSII layout across **0.57 mm²**, operating at **62 MHz** with **3.76 mW** total power.
 
 **Thesis:** Bachelor of Science (B.Sc.)  
 **Department:** Electronics and Telecommunication Engineering  
