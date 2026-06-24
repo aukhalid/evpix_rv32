@@ -505,72 +505,69 @@ GDSII for Fabrication
 - ✅ Compatible with OpenROAD automated flow
 - ✅ Active community + Open MPW shuttle programs
 - ✅ Educational accessibility over cutting-edge performance
-
 ### Physical Design Results
 
 #### Synthesis Results (Yosys)
 
 | Metric | Value |
 |--------|-------|
-| Total Standard Cell Area | **159,490.46 µm²** |
-| Equivalent NAND2 Gate Count | **42,490 gates** |
-| Total Wire Count | 28,023 |
-| Sequential Cells (DFFs) | 2,336 (10.4%) |
-| Combinational Cells | 20,064 (89.6%) |
+| Total Standard Cell Area | **175,483 µm²** |
+| Equivalent NAND2 Gate Count | **~60,932 gates** |
+| Total Wire Count | 27,281 |
+| Sequential Cells (DFFs) | 2,368 (8.9%) |
+| Combinational Cells | 24,323 (91.1%) |
 
 #### Floorplan & Die Statistics
 
 | Metric | Value |
 |--------|-------|
-| Die Width × Height | 5500.00 × 5500.00 µm |
-| **Total Die Area** | **30.250 mm²** |
-| Core Utilization | 50% (target) |
+| Die Width × Height | 760.0 × 760.0 µm |
+| **Total Die Area** | **0.5776 mm²** |
+| Core Width × Height | 719.44 × 718.08 µm |
+| Core Area | 516,615 µm² |
+| Core Utilization | 33.97% (Target: 32%) |
 | Aspect Ratio | 1.00:1 (square) |
 
 #### Clock Tree Synthesis (TritonCTS)
 
 | Metric | Value |
 |--------|-------|
-| Global Clock Skew | **0.77 ps** |
-| Maximum Clock Latency | 2.5024 ps |
-| Minimum Clock Latency | 2.5066 ps |
-| Clock Buffers Inserted | 394 |
+| Global Clock Skew | **-0.13 ns** |
+| Maximum Clock Latency | 1.0482 ns |
+| Minimum Clock Latency | 1.0630 ns |
+| Clock Buffers Inserted | 464 |
 
 #### Routing Results
 
 | Metric | Value |
 |--------|-------|
-| Total Wirelength | **2.354 meters** |
-| Routing Layers Used | M1, M2, M3, M4, M5 |
+| Total Wirelength | **1,312,842 µm (1.3128 m)** |
+| Routing Layers Used | M1 - M5 |
 | Final DRC Violations | **0 (CLEAN)** |
 
 #### Static Timing Analysis (OpenSTA)
 
 | Metric | Value |
 |--------|-------|
-| Worst Setup Slack | **+41.768 ns** |
-| Worst Hold Slack | **+0.320 ns** |
-| Critical Path Delay | 53.232 ns |
-| **Maximum Operating Frequency** | **100.0 MHz** |
+| Worst Setup Slack | **+41.1253 ns** |
+| Worst Hold Slack | **+0.36 ns** |
+| Critical Path Delay | 53.8747 ns |
+| **Maximum Operating Frequency** | **62.06 MHz** |
 | Setup Violations | 0 |
 | Hold Violations | 0 |
 
-> ✅ **Timing closure achieved with positive slack at 100 MHz target!**
+&gt; ✅ **Timing closure achieved with positive slack at 62.06 MHz!**
 
 #### Power Analysis
 
-<p align="center">
-  <img src="images/asic_heat_map_2_new.png" alt="ASIC Power Heatmap" width="500"/>
-</p>
-
 | Metric | Value |
 |--------|-------|
-| Leakage Power | 0.095 µW |
-| Internal Power | 2,020.000 µW |
-| Switching Power | 1,220.000 µW |
-| **Total Power Consumption** | **3.240 mW** |
+| Leakage Power | 0.092 µW |
+| Internal Power | 2,150.000 µW |
+| Switching Power | 1,610.000 µW |
+| **Total Power Consumption** | **3.760 mW** |
 
-**Power breakdown:** The design achieves excellent power efficiency for edge-vision applications, with total consumption under 3.5 mW at 100 MHz — suitable for battery-powered and energy-harvesting deployments.
+**Power breakdown:** The design achieves excellent power efficiency for edge-vision applications, with total consumption under 4.0 mW at 62.06 MHz — suitable for battery-powered and energy-harvesting deployments.
 
 ### Physical Verification Signoff
 
@@ -583,26 +580,25 @@ GDSII for Fabrication
 
 ### GDSII Layout Views
 
-<p align="center">
-  <img src="images/asic_new.png" alt="Full-Chip GDSII" width="500"/>
-  <br/><em>Full-chip GDSII layout with core area, IO ring, power network, and clock tree</em>
-</p>
+&lt;p align="center"&gt;
+  &lt;img src="images/asic_new.png" alt="Full-Chip GDSII" width="500"/&gt;
+  &lt;br/&gt;&lt;em&gt;Full-chip GDSII layout with core area, IO ring, power network, and clock tree&lt;/em&gt;
+&lt;/p&gt;
 
+&lt;p align="center"&gt;
+  &lt;img src="images/asic_without_power_ground_new.png" alt="Full-Chip GDSII" width="500"/&gt;
+  &lt;br/&gt;&lt;em&gt;Full-chip GDSII layout with core area, without power, ground network, and clock tree&lt;/em&gt;
+&lt;/p&gt;
 
-<p align="center">
-  <img src="images/asic_without_power_ground_new.png" alt="Full-Chip GDSII" width="500"/>
-  <br/><em>Full-chip GDSII layout with core area, without power, ground network, and clock tree</em>
-</p>
+&lt;p align="center"&gt;
+  &lt;img src="images/detailed_transistor_layout_core.png" alt="Transistor Zoom" width="500"/&gt;
+  &lt;br/&gt;&lt;em&gt;Transistor-level zoom of standard cell implementation&lt;/em&gt;
+&lt;/p&gt;
 
-<p align="center">
-  <img src="images/detailed_transistor_layout_core.png" alt="Transistor Zoom" width="500"/>
-  <br/><em>Transistor-level zoom of standard cell implementation</em>
-</p>
-
-<p align="center">
-  <img src="images/asic_io_right_new.png" alt="I/O Right Side" width="500"/>
-  <br/><em>Right-side I/O pad ring with signal, power, and ground pads</em>
-</p>
+&lt;p align="center"&gt;
+  &lt;img src="images/asic_io_right_new.png" alt="I/O Right Side" width="500"/&gt;
+  &lt;br/&gt;&lt;em&gt;Right-side I/O pad ring with signal, power, and ground pads&lt;/em&gt;
+&lt;/p&gt;
 
 ---
 
@@ -643,9 +639,9 @@ GDSII for Fabrication
 
 | Metric | FPGA (Artix-7) | ASIC (SkyWater 130nm) |
 |--------|---------------|----------------------|
-| Frequency | ~70 MHz (timing limited) | **100 MHz** (clean closure) |
-| Power | 216 mW | **3.24 mW** |
-| Area | 16,547 LUTs | 30.25 mm² die |
+| Frequency | ~70 MHz (timing limited) | **62.06 MHz** (clean closure) |
+| Power | 216 mW | **3.76 mW** |
+| Area | 16,547 LUTs | 0.5776 mm² die |
 | Technology | 28nm FPGA fabric | 130nm CMOS |
 | BRAM | 30 tiles (60%) | SRAM macros |
 
