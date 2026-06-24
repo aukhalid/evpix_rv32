@@ -707,56 +707,115 @@ GDSII for Fabrication
 
 ```
 evpix_rv32/
-├── rtl/                          # SystemVerilog RTL source files
-│   ├── core/                     # RV32I processor core
-│   │   ├── rv32i_top.sv          # Top-level processor module
-│   │   ├── if_stage.sv           # Instruction Fetch
-│   │   ├── id_stage.sv           # Instruction Decode
-│   │   ├── ex_stage.sv           # Execute (with custom instr.)
-│   │   ├── mem_stage.sv          # Memory Access
-│   │   ├── wb_stage.sv           # Write Back
-│   │   ├── hazard_unit.sv        # Hazard detection & forwarding
-│   │   ├── register_file.sv      # 32×32-bit register file
-│   │   └── alu.sv                # 32-bit ALU
-│   ├── ipu/                      # Image Processing Unit
-│   │   ├── ipu_top.sv            # IPU top module
-│   │   ├── ipu_fsm.sv            # 16-state FSM controller
-│   │   ├── sobel_unit.sv         # Sobel gradient computation
-│   │   ├── conv_unit.sv          # 2D convolution engine
-│   │   ├── pool_unit.sv          # Max/avg pooling
-│   │   └── kernel_rom.sv         # Kernel coefficient ROM
-│   ├── memory/                   # Memory subsystem
-│   │   ├── data_memory.sv        # 64KB dual-port BRAM
-│   │   └── instr_rom.sv          # Instruction ROM
-│   ├── peripherals/              # I/O interfaces
-│   │   ├── camera_interface.sv   # OV7670 DVP interface
-│   │   ├── vga_controller.sv     # VGA 640×480 @ 60Hz
-│   │   └── display_overlay.sv    # On-screen text overlay
-│   ├── tinyml/                   # TinyML accelerator
-│   │   ├── feature_extractor.sv  # Hardware feature extraction
-│   │   └── classifier.sv         # Quantized NN classifier
-│   └── top/                      # System integration
-│       └── evpix_rv32_top.sv     # Complete SoC top level
-├── sim/                          # Simulation testbenches
-│   ├── tb_rv32i_core.sv          # RV32I core testbench
-│   ├── tb_ipu_system.sv          # IPU system testbench
-│   └── tb_full_system.sv         # Full SoC testbench
-├── fpga/                         # FPGA implementation
-│   ├── basys3_constraints.xdc    # Basys-3 pin constraints
-│   ├── vivado_project/           # Vivado project files
-│   └── bitstream/                # Generated bitstreams
-├── asic/                         # ASIC implementation
-│   ├── openlane_config/          # OpenLane configuration
-│   ├── sdc/                      # Timing constraints
-│   ├── gdsii/                    # Final GDSII layout
-│   └── reports/                  # Synthesis, timing, power reports
-├── images/                       # Documentation images
-├── docs/                         # Documentation
-│   ├── thesis.pdf                # Full thesis document
-│   └── presentations/            # Defense slides
-├── tools/                        # Helper scripts
-├── README.md                     # This file
-└── LICENSE                       # Apache 2.0 License
+├── README.md
+├── asic/
+│   ├── flow/
+│   │   ├── rtl_files.mk
+│   │   ├── asap7/
+│   │   │   ├── config.mk
+│   │   │   └── constraint.sdc
+│   │   └── sky130hd/
+│   │       ├── config.mk
+│   │       └── constraint.sdc
+│   ├── rtl_src/
+│   │   ├── asic/
+│   │   │   ├── evpix_asic_core_top.sv
+│   │   │   └── rv32i_core_asic_extmem.sv
+│   │   └── common/
+│   │       ├── adder.sv
+│   │       ├── alu.sv
+│   │       ├── alu_control.sv
+│   │       ├── branch_unit.sv
+│   │       ├── datapath.sv
+│   │       ├── decode_stage.sv
+│   │       ├── evpix_finger_model_pkg.sv
+│   │       ├── evpix_ml_feature_extractor.sv
+│   │       ├── evpix_tinyml_classifier.sv
+│   │       ├── ex_mem_reg.sv
+│   │       ├── execute_stage.sv
+│   │       ├── fetch_stage.sv
+│   │       ├── forwarding_unit.sv
+│   │       ├── hazard_detection_unit.sv
+│   │       ├── id_ex_reg.sv
+│   │       ├── if_id_reg.sv
+│   │       ├── imm_generator.sv
+│   │       ├── instruction_memory_fpga.sv
+│   │       ├── ipu_fpga.sv
+│   │       ├── main_control.sv
+│   │       ├── mem_wb_reg.sv
+│   │       ├── program_counter.sv
+│   │       ├── register_file.sv
+│   │       └── writeback_stage.sv
+│   ├── scripts/
+│   │   ├── 00_RUN_ME_FIRST_SKY130_FULL.sh
+│   │   ├── 00_linux_first_steps.sh
+│   │   ├── 01_check_tools.sh
+│   │   ├── 02_install_designs_into_orfs.sh
+│   │   ├── 05_FIX_ORFS_READ_VERILOG_TCL.sh
+│   │   ├── 10_run_sky130hd.sh
+│   │   ├── 20_run_asap7.sh
+│   │   ├── 30_collect_reports.sh
+│   │   ├── 40_yosys_synth_only.sh
+│   │   ├── 50_RUN_ASAP7_AFTER_SKY130.sh
+│   │   ├── 70_MAKE_GDSII_COPY.sh
+│   │   ├── 80_VIEW_LAYOUT.sh
+│   │   ├── 81_EXPORT_LAYOUT_SCREENSHOT.sh
+│   │   ├── 85_WRITE_GDS_FROM_FILLED_ODB.sh
+│   │   ├── 98_KILL_STUCK_EVPIX_FLOW.sh
+│   │   ├── 99_SHOW_LAST_ERROR.sh
+│   │   └── yosys_synth_only.ys
+│   └── signoff/
+│       └── evpix_asic_sky130hd_GDSII.txt
+├── docs/
+│   └── documentation.pdf
+├── fpga/
+│   ├── bitstream/
+│   │   └── evpix_rv32_top.bit
+│   ├── constrains/
+│   │   └── evpix_basys3.xdc
+│   ├── rtl_src/
+│   │   ├── adder.sv
+│   │   ├── alu.sv
+│   │   ├── alu_control.sv
+│   │   ├── branch_unit.sv
+│   │   ├── data_memory_fpga.sv
+│   │   ├── datapath.sv
+│   │   ├── decode_stage.sv
+│   │   ├── evpix_finger_model_pkg.sv
+│   │   ├── evpix_ml_feature_extractor.sv
+│   │   ├── evpix_tinyml_classifier.sv
+│   │   ├── evpix_top_ov7670_direct.sv
+│   │   ├── evpix_vga_frame_display_db.sv
+│   │   ├── ex_mem_reg.sv
+│   │   ├── execute_stage.sv
+│   │   ├── fetch_stage.sv
+│   │   ├── forwarding_unit.sv
+│   │   ├── hazard_detection_unit.sv
+│   │   ├── id_ex_reg.sv
+│   │   ├── if_id_reg.sv
+│   │   ├── imm_generator.sv
+│   │   ├── instruction_memory_fpga.sv
+│   │   ├── ipu_fpga.sv
+│   │   ├── main_control.sv
+│   │   ├── mem_wb_reg.sv
+│   │   ├── memory_stage.sv
+│   │   ├── ov7670_capture_128_rgb565_to_rgb888.sv
+│   │   ├── ov7670_sccb_init.sv
+│   │   ├── program_counter.sv
+│   │   ├── register_file.sv
+│   │   ├── rv32i_core_fpga.sv
+│   │   ├── vga_640x480.sv
+│   │   └── writeback_stage.sv
+│   └── testbench/
+│       ├── memfile.hex
+│       ├── memfile_ipu_system.hex
+│       ├── memfile_pix.hex
+│       ├── memfile_rv32i.hex
+│       ├── tb_ipu_system.sv
+│       ├── tb_rv32i_ipu_custom.sv
+│       └── tb_rv32i_top.sv
+└── images/
+    └── (90+ PNG/JPG documentation images — diagrams, ASIC layouts, FPGA results, etc.)
 ```
 
 ---
@@ -773,10 +832,10 @@ evpix_rv32/
 - USB-A to micro-B cable
 
 #### For ASIC Synthesis:
-- OpenLane 2.x (via Nix or Docker)
-- SkyWater 130nm PDK (auto-downloaded by OpenLane)
+- OpenROAD Flow Script
+- SkyWater 130nm PDK (auto-downloaded)
 - Yosys 0.35+
-- OpenROAD (included in OpenLane)
+- TritonCTS, OpenSTA
 - Magic, KLayout, Netgen (for signoff)
 
 ### FPGA Quick Start
@@ -786,31 +845,13 @@ evpix_rv32/
 git clone https://github.com/aukhalid/evpix_rv32.git
 cd evpix_rv32
 
-# Open Vivado and create project with Basys-3 constraints
-# Or use the provided Tcl script:
-vivado -source fpga/vivado_project/create_project.tcl
+# Open Vivado and create project with rtl sources and Basys-3 constraints
 
 # Run synthesis, implementation, and generate bitstream
 # Program the Basys-3 board via JTAG
 
 # Connect OV7670 camera to Pmod port and VGA monitor
 # Power on and use switches to select operating mode
-```
-
-### ASIC Quick Start
-
-```bash
-# Using OpenLane Docker container
-cd asic/openlane_config
-
-# Run the complete RTL-to-GDSII flow
-make evpix_rv32
-
-# View results
-klayout ../gdsii/evpix_rv32.gds
-
-# Check reports
-cat ../reports/final_summary_report.csv
 ```
 
 ### Simulation
