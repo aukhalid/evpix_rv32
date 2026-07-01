@@ -8,6 +8,36 @@
 #  Simulation  : Vivado xsim  (xvlog → xelab → xsim)
 #  FPGA        : Vivado batch (synth → impl → bitstream → program)
 #  ASIC        : OpenROAD-Flow-Scripts via your asic/scripts/ shell scripts
+#
+# Quick reference
+# ───────────────
+#  make help              show all targets
+#  make setup             create build/ folder tree (run once after git clone)
+#
+#  make sim_core          simulate tb_rv32i_top        (RV32I pipeline regression)
+#  make sim_ipu           simulate tb_ipu_system       (IPU system test)
+#  make sim_custom        simulate tb_rv32i_ipu_custom (custom ISA + IPU joint test)
+#  make sim_all           run all three testbenches in sequence
+#
+#  make fpga_synth_only   Vivado synthesis → post_synth.dcp
+#  make fpga_impl_only    Vivado P&R       → post_route.dcp
+#  make fpga_bit_only     Generate bitstream
+#  make fpga_all          Full Vivado flow (synth → impl → bit) in one shot
+#  make fpga_program      Flash Basys-3 via JTAG
+#
+#  make asic_setup_check  Verify ORFS install + tools
+#  make asic_install      Install design into ORFS
+#  make asic_synth_only   Yosys synthesis only
+#  make asic_all          Full RTL-to-GDSII (SKY130HD) — takes 20-60 min
+#  make asic_asap7        Full ASAP7 variant flow
+#  make asic_report       Print QoR metrics
+#  make asic_view         Open GDSII in KLayout
+#  make asic_kill         Kill a stuck flow
+#
+#  make clean             Remove simulation artifacts only
+#  make clean_all         Remove all build artifacts (sim + fpga + asic)
+#  make distclean         Remove the entire build/ directory
+
 #==============================================================================
 
 SHELL       := /bin/bash
