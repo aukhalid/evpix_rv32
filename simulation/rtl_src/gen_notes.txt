@@ -1,0 +1,1 @@
+memfile_pix.hex defaults to custom IPU system test.
