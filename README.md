@@ -814,58 +814,751 @@ evpix_rv32/
 │       ├── tb_ipu_system.sv
 │       ├── tb_rv32i_ipu_custom.sv
 │       └── tb_rv32i_top.sv
+├── simulation/
+│   ├── rtl_src/
+│   │   ├── adder.sv
+│   │   ├── alu.sv
+│   │   ├── alu_control.sv
+│   │   ├── branch_unit.sv
+│   │   ├── data_memory.sv
+│   │   ├── datapath.sv
+│   │   ├── decode_stage.sv
+│   │   ├── evpix_top.sv
+│   │   ├── ex_mem_reg.sv
+│   │   ├── execute_stage.sv
+│   │   ├── fetch_stage.sv
+│   │   ├── forwarding_unit.sv
+│   │   ├── hazard_detection_unit.sv
+│   │   ├── id_ex_reg.sv
+│   │   ├── if_id_reg.sv
+│   │   ├── imm_generator.sv
+│   │   ├── instruction_memory_fpga.sv
+│   │   ├── ipu.sv
+│   │   ├── main_control.sv
+│   │   ├── mem_wb_reg.sv
+│   │   ├── memory_stage.sv
+│   │   ├── program_counter.sv
+│   │   ├── register_file.sv
+│   │   ├── rv32i_core.sv
+│   │   └── writeback_stage.sv
+│   └── testbench/
+│       ├── memfile.hex
+│       ├── memfile_ipu_system.hex
+│       ├── memfile_pix.hex
+│       ├── memfile_rv32i.hex
+│       ├── tb_ipu_system.sv
+│       ├── tb_rv32i_ipu_custom.sv
+│       └── tb_rv32i_top.sv
 └── images/
-    └── (90+ PNG/JPG documentation images — diagrams, ASIC layouts, FPGA results, etc.)
+|    └── (90+ PNG/JPG documentation images — diagrams, ASIC layouts, FPGA results, etc.)
+└── Makefile
+└── README.md
 ```
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-### Prerequisites
+This guide walks you through setting up your Linux environment and running the three main design flows:
 
-#### For FPGA Prototyping:
-- Xilinx Vivado 2023.1 or later (free WebPACK license for Artix-7)
-- Digilent Basys-3 board
-- OV7670 camera module with breakout board
-- VGA monitor + cable
-- USB-A to micro-B cable
+- **Simulation** (Vivado xsim)
+- **FPGA** (Basys-3 + OV7670)
+- **ASIC** (OpenROAD Flow Scripts)
 
-#### For ASIC Synthesis:
-- OpenROAD Flow Script
-- SkyWater 130nm PDK (auto-downloaded)
-- Yosys 0.35+
-- TritonCTS, OpenSTA
-- Magic, KLayout, Netgen (for signoff)
+Follow the steps in order.
 
-### FPGA Quick Start
+---
+
+# 1. Simulation (Vivado xsim)
+
+The simulation flow uses Vivado's built-in simulator (**xsim**) and sources RTL from the `simulation/` directory.
+
+## 1.1 Prerequisites
+
+| Tool | Purpose | Install Command |
+|------|---------|-----------------|
+| make | Build automation | `sudo apt install -y make` |
+| build-essential | Compilers & development tools | `sudo apt install -y build-essential` |
+| Xilinx Vivado | Simulation, Synthesis & FPGA | See **§1.2** |
+
+---
+
+## 1.2 Installing Xilinx Vivado (WebPACK — Free)
+
+Vivado is required for both simulation and FPGA flows.
+
+The free **WebPACK** edition supports **Artix-7** devices.
+
+### Step A — Download the Installer
+
+1. Create a free AMD/Xilinx account at https://www.xilinx.com
+2. Download the **AMD Unified Installer for FPGAs & Adaptive SoCs**
+   - Linux Self-Extracting Web Installer (~290 MB)
+   - Available from the Vivado download page.
+
+---
+
+### Step B — Install Dependencies
 
 ```bash
-# Clone the repository
+sudo apt update
+
+sudo apt install -y \
+    libtinfo-dev \
+    libncurses-dev \
+    libglib2.0-dev \
+    libgtk2.0-dev \
+    zlib1g \
+    python3-dev \
+    python3-pip \
+    default-jre \
+    default-jdk \
+    libswt-gtk-4-jni \
+    locales \
+    tar \
+    gzip \
+    gcc \
+    g++ \
+    make \
+    build-essential
+```
+
+---
+
+### Step C — Run the Installer
+
+```bash
+# Navigate to your download directory
+
+chmod +x FPGAs_AdaptiveSoCs_Unified_2024.1_0522_2023_Lin64.bin
+
+sh FPGAs_AdaptiveSoCs_Unified_2024.1_0522_2023_Lin64.bin
+```
+
+During installation:
+
+- Select **Vivado ML Standard Edition**
+- Select **Vivado**
+- (Optional) Install **Vitis**
+- Select **Artix-7** devices only
+- Choose an installation directory
+
+Recommended:
+
+```
+/tools/Xilinx/
+```
+
+or
+
+```
+/opt/Xilinx/
+```
+
+---
+
+### Step D — Add Vivado to PATH
+
+Add the following line to your `~/.bashrc`.
+
+Adjust the version/path if necessary.
+
+```bash
+source /tools/Xilinx/Vivado/2024.1/settings64.sh
+```
+
+Reload your shell.
+
+```bash
+source ~/.bashrc
+```
+
+---
+
+### Step E — Verify Installation
+
+```bash
+vivado -version
+
+xvlog -version
+
+xelab -version
+
+xsim -version
+```
+
+---
+
+### Troubleshooting
+
+If you encounter
+
+```
+libtinfo.so.5: cannot open shared object file
+```
+
+run
+
+```bash
+sudo apt install libtinfo-dev
+
+sudo ln -s \
+/lib/x86_64-linux-gnu/libtinfo.so.6 \
+/lib/x86_64-linux-gnu/libtinfo.so.5
+```
+
+---
+
+## 1.3 Clone & Setup the Project
+
+```bash
 git clone https://github.com/aukhalid/evpix_rv32.git
+
 cd evpix_rv32
 
-# Open Vivado and create project with rtl sources and Basys-3 constraints
-
-# Run synthesis, implementation, and generate bitstream
-# Program the Basys-3 board via JTAG
-
-# Connect OV7670 camera to Pmod port and VGA monitor
-# Power on and use switches to select operating mode
+# Create the build directory tree
+make setup
 ```
 
-### Simulation
+Run `make setup` only once after cloning.
+
+---
+
+## 1.4 Run Simulations
+
+### RV32I Core Regression
 
 ```bash
-# Run RV32I core testbench
 make sim_core
-
-# Run IPU system testbench
-make sim_ipu
-
-# Run full system testbench
-make sim_system
 ```
+
+### IPU Functional Testbench
+
+```bash
+make sim_ipu
+```
+
+### Custom ISA + IPU Testbench
+
+```bash
+make sim_custom
+```
+
+### Run Everything
+
+```bash
+make sim_all
+```
+
+---
+
+### Simulation Outputs
+
+Logs
+
+```
+build/sim/logs/
+```
+
+Waveforms (when `WAVES=1`)
+
+```
+build/sim/xsim.dir/
+```
+
+Memory HEX files are automatically copied from
+
+```
+simulation/testbench/
+```
+
+---
+
+### Open the Waveform Viewer
+
+```bash
+make sim_core WAVES=1
+```
+
+This launches the Vivado **xsim GUI**.
+
+---
+
+# 2. FPGA Prototyping (Basys-3 + OV7670)
+
+The FPGA flow uses Vivado in batch mode and sources RTL from the `fpga/` directory.
+
+---
+
+## 2.1 Additional Prerequisites
+
+| Hardware | Details |
+|----------|---------|
+| Digilent Basys-3 | Xilinx Artix-7 FPGA (`xc7a35tcpg236-1`) |
+| OV7670 Camera | With breakout board, connected via PMOD |
+| VGA Monitor | Standard VGA |
+| USB-A → Micro-B Cable | Programming & power |
+
+> **Note:** The free Vivado WebPACK license fully supports the Artix-7 on the Basys-3.
+
+---
+
+## 2.2 FPGA Build Flow
+
+Run the complete flow:
+
+```bash
+make fpga_all
+```
+
+Or execute each step individually.
+
+### Synthesis
+
+```bash
+make fpga_synth_only
+```
+
+Produces
+
+```
+post_synth.dcp
+```
+
+---
+
+### Place & Route
+
+```bash
+make fpga_impl_only
+```
+
+Produces
+
+```
+post_route.dcp
+```
+
+---
+
+### Bitstream Generation
+
+```bash
+make fpga_bit_only
+```
+
+---
+
+### FPGA Outputs
+
+Checkpoints
+
+```
+build/fpga/synth/
+
+build/fpga/impl/
+```
+
+Bitstream
+
+```
+build/fpga/bitstream/evpix_rv32_top.bit
+```
+
+Reports
+
+```
+build/fpga/reports/
+```
+
+Includes:
+
+- Timing
+- Utilization
+- Power
+
+---
+
+## 2.3 Program the Board
+
+```bash
+make fpga_program
+```
+
+This flashes the bitstream over JTAG.
+
+---
+
+### Physical Connections
+
+- Connect the Basys-3 using USB
+- Connect the OV7670 camera to the PMOD header
+- Connect a VGA monitor
+- Power on the board
+- Use onboard switches to select operating mode
+
+Constraint file:
+
+```
+fpga/constrains/evpix_basys3.xdc
+```
+
+---
+
+### Overridable Variables
+
+```bash
+make fpga_all \
+FPGA_TOP=your_custom_top \
+FPGA_PART=xc7a35tcpg236-1
+```
+
+---
+
+# 3. ASIC Synthesis (OpenROAD Flow Scripts)
+
+The ASIC flow uses **OpenROAD Flow Scripts (ORFS)** with either
+
+- SKY130HD
+- ASAP7
+
+to perform complete RTL-to-GDSII physical implementation.
+
+---
+
+## 3.1 Prerequisites
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| git | Version Control | `sudo apt install -y git` |
+| python3-venv python3-pip python3-yaml | Python tooling | `sudo apt install -y python3-venv python3-pip python3-yaml` |
+| OpenROAD Flow Scripts | Complete RTL-to-GDSII Flow | See **§3.2** |
+| KLayout | GDS Viewer | Installed by ORFS |
+
+---
+
+### Recommended Hardware
+
+Minimum
+
+- 1 CPU core
+- 8 GB RAM
+
+Recommended
+
+- 4+ CPU cores
+- 16+ GB RAM
+- 100+ GB free disk space
+
+---
+
+## 3.2 Installing OpenROAD Flow Scripts
+
+### Step A — Clone
+
+```bash
+mkdir -p ~/Work/vlsi/tools
+
+cd ~/Work/vlsi/tools
+
+git clone --recursive \
+https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
+
+cd OpenROAD-flow-scripts
+```
+
+---
+
+### Step B — Install Dependencies
+
+```bash
+sudo ./setup.sh
+```
+
+This installs
+
+- CMake
+- Boost
+- Lemon
+- SWIG
+- Eigen
+- Yosys dependencies
+- KLayout
+
+---
+
+### Step C — Build
+
+```bash
+./build_openroad.sh --local
+```
+
+Compilation typically takes
+
+**20–60 minutes**
+
+depending on hardware.
+
+---
+
+### Step D — Configure Environment
+
+Add to your `~/.bashrc`
+
+```bash
+source ~/Work/vlsi/tools/OpenROAD-flow-scripts/env.sh
+```
+
+Reload
+
+```bash
+source ~/.bashrc
+```
+
+---
+
+### Step E — Verify Installation
+
+```bash
+yosys -help
+
+openroad -help
+```
+
+---
+
+### Step F — Test with Sample Design
+
+```bash
+cd ~/Work/vlsi/tools/OpenROAD-flow-scripts/flow
+
+make
+
+make gui_final
+```
+
+This launches the OpenROAD GUI.
+
+---
+
+## 3.3 ASIC Build Flow for EVPIX-RV32
+
+The Makefile assumes
+
+```
+~/OpenROAD-flow-scripts
+```
+
+Override with
+
+```
+ORFS_DIR=
+```
+
+if necessary.
+
+---
+
+### Verify ORFS
+
+```bash
+make asic_setup_check
+```
+
+---
+
+### Install Design
+
+```bash
+make asic_install
+```
+
+---
+
+### Synthesis Only
+
+```bash
+make asic_synth_only
+```
+
+---
+
+### Full RTL-to-GDSII Flow
+
+```bash
+make asic_all
+```
+
+Typically takes
+
+**20–60 minutes**
+
+---
+
+### ASAP7 Flow
+
+```bash
+make asic_asap7
+```
+
+---
+
+### ASIC Outputs
+
+Logs
+
+```
+build/asic/logs/
+```
+
+Reports
+
+```
+build/asic/reports/qor_summary.txt
+```
+
+GDSII
+
+```
+build/asic/gds/
+```
+
+Automatically copied using
+
+```
+asic_gds_copy
+```
+
+---
+
+### View Layout
+
+```bash
+make asic_view
+```
+
+Opens the GDSII in KLayout.
+
+---
+
+### View QoR
+
+```bash
+make asic_report
+```
+
+Prints
+
+- Area
+- Timing
+- Power
+
+---
+
+### Kill a Stuck Flow
+
+```bash
+make asic_kill
+```
+
+---
+
+### Overridable Variables
+
+```bash
+make asic_all \
+ORFS_DIR=/custom/path \
+PLATFORM=sky130hd
+```
+
+---
+
+# 4. Cleanup Commands
+
+Remove simulation artifacts
+
+```bash
+make clean
+```
+
+Remove simulation, FPGA and ASIC artifacts
+
+```bash
+make clean_all
+```
+
+Remove the entire build directory
+
+```bash
+make distclean
+```
+
+---
+
+# Quick Reference
+
+| Target | Description |
+|---------|-------------|
+| `make help` | Show all available targets |
+| `make setup` | Create build directory tree |
+| `make sim_core` | Run RV32I simulation |
+| `make sim_ipu` | Run IPU simulation |
+| `make sim_custom` | Run Custom ISA simulation |
+| `make sim_all` | Run all simulations |
+| `make fpga_synth_only` | FPGA synthesis |
+| `make fpga_impl_only` | FPGA implementation |
+| `make fpga_bit_only` | FPGA bitstream |
+| `make fpga_all` | Complete FPGA flow |
+| `make fpga_program` | Program Basys-3 |
+| `make asic_setup_check` | Verify ORFS installation |
+| `make asic_install` | Install project into ORFS |
+| `make asic_synth_only` | ASIC synthesis |
+| `make asic_all` | Complete ASIC flow |
+| `make asic_asap7` | ASAP7 flow |
+| `make asic_report` | QoR summary |
+| `make asic_view` | View layout |
+| `make asic_kill` | Stop running flow |
+
+---
+
+# Need Help?
+
+## Documentation
+
+```bash
+make help
+```
+
+---
+
+## Simulation Logs
+
+```
+build/sim/logs/
+```
+
+---
+
+## FPGA Reports
+
+```
+build/fpga/reports/
+```
+
+---
+
+## ASIC Logs
+
+```
+build/asic/logs/
+```
+
+For the latest ASIC error
+
+```bash
+make asic_last_error
+```
+
 
 ---
 
