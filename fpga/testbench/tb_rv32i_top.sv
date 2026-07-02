@@ -1,8 +1,6 @@
 module tb_rv32i_top;
-
-
-    logic   clk   ;
-    logic   reset ;
+    logic clk;
+    logic reset;
     integer errors;
 
     rv32i_core #(
@@ -42,20 +40,20 @@ module tb_rv32i_top;
 
     always @(posedge clk) begin
         if (!reset) begin
-            $display("t = %0t | PC = %08h | IF_instr = %08h | WB_we = %0b | WB_rd = x%0d | WB_data = %08h",
-            $time,
-            dut.dp.pc_f,
-            dut.instr,
-            dut.dp.reg_write_w,
-            dut.dp.rd_w,
-            dut.dp.result_w);
+            $display("t=%0t | PC=%08h | IF_instr=%08h | WB_we=%0b | WB_rd=x%0d | WB_data=%08h",
+                     $time,
+                     dut.dp.pc_f,
+                     dut.instr,
+                     dut.dp.reg_write_w,
+                     dut.dp.rd_w,
+                     dut.dp.result_w);
         end
     end
 
     initial begin
         clk    = 1'b0;
         reset  = 1'b1;
-        errors = 0   ;
+        errors = 0;
 
         $display("==============================================================");
         $display("RV32I baseline regression test");

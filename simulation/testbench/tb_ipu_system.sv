@@ -1,25 +1,24 @@
 module tb_ipu_system;
 
-
-    localparam int IMG_W     = 8            ;
-    localparam int IMG_H     = 8            ;
+    localparam int IMG_W     = 8;
+    localparam int IMG_H     = 8;
     localparam int PIXELS    = IMG_W * IMG_H;
-    localparam int SRC_BYTES = PIXELS * 3   ;
-    localparam int DST_GRAY  = 32'd192      ;
-    localparam int DST_THR   = 32'd256      ;
-    localparam int DST_SOBEL = 32'd320      ;
-    localparam int DST_CONV  = 32'd384      ;
-    localparam int DST_MAXP  = 32'd448      ;
-    localparam int DST_AVGP  = 32'd512      ;
+    localparam int SRC_BYTES = PIXELS * 3;
+    localparam int DST_GRAY  = 32'd192;
+    localparam int DST_THR   = 32'd256;
+    localparam int DST_SOBEL = 32'd320;
+    localparam int DST_CONV  = 32'd384;
+    localparam int DST_MAXP  = 32'd448;
+    localparam int DST_AVGP  = 32'd512;
 
-    logic         clk   ;
-    logic         reset ;
-    integer       errors;
-    integer       i     ;
-    integer       x     ;
-    integer       y     ;
-    logic   [7:0] got   ;
-    logic   [7:0] exp   ;
+    logic clk;
+    logic reset;
+    integer errors;
+    integer i;
+    integer x;
+    integer y;
+    logic [7:0] got;
+    logic [7:0] exp;
 
     rv32i_core #(
         .IMG_W(IMG_W),
@@ -65,9 +64,9 @@ module tb_ipu_system;
     endfunction
 
     initial begin
-        clk    = 1'b0;
-        reset  = 1'b1;
-        errors = 0   ;
+        clk = 1'b0;
+        reset = 1'b1;
+        errors = 0;
 
         $display("==============================================================");
         $display("EVPIX IPU system test");
@@ -96,85 +95,85 @@ module tb_ipu_system;
         check_reg_nz(21, "pooling counter read");
         check_reg_eq(22, 32'd0, "stall counter (expected zero in this program)");
 
-        // $display("--- Grayscale output checks ---");
-        // for (y = 0; y < IMG_H; y = y + 1) begin
-        //     for (x = 0; x < IMG_W; x = x + 1) begin
-        //         got = dut.dmem.ram[DST_GRAY + y*IMG_W + x];
-        //         exp = exp_gray(x);
-        //         if (got !== exp) begin
-        //             $display("FAIL GRAY[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
-        //             errors = errors + 1;
-        //         end
-        //     end
-        // end
+        $display("--- Grayscale output checks ---");
+        for (y = 0; y < IMG_H; y = y + 1) begin
+            for (x = 0; x < IMG_W; x = x + 1) begin
+                got = dut.dmem.ram[DST_GRAY + y*IMG_W + x];
+                exp = exp_gray(x);
+                if (got !== exp) begin
+                    $display("FAIL GRAY[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
+                    errors = errors + 1;
+                end
+            end
+        end
 
-        // $display("--- Threshold output checks ---");
-        // for (y = 0; y < IMG_H; y = y + 1) begin
-        //     for (x = 0; x < IMG_W; x = x + 1) begin
-        //         got = dut.dmem.ram[DST_THR + y*IMG_W + x];
-        //         exp = exp_gray(x);
-        //         if (got !== exp) begin
-        //             $display("FAIL THR[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
-        //             errors = errors + 1;
-        //         end
-        //     end
-        // end
+        $display("--- Threshold output checks ---");
+        for (y = 0; y < IMG_H; y = y + 1) begin
+            for (x = 0; x < IMG_W; x = x + 1) begin
+                got = dut.dmem.ram[DST_THR + y*IMG_W + x];
+                exp = exp_gray(x);
+                if (got !== exp) begin
+                    $display("FAIL THR[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
+                    errors = errors + 1;
+                end
+            end
+        end
 
-        // $display("--- Sobel output checks ---");
-        // for (y = 0; y < IMG_H; y = y + 1) begin
-        //     for (x = 0; x < IMG_W; x = x + 1) begin
-        //         got = dut.dmem.ram[DST_SOBEL + y*IMG_W + x];
-        //         if ((y == 0) || (y == IMG_H-1) || (x == 0) || (x == IMG_W-1))
-        //             exp = 8'h00;
-        //         else if ((x == 3) || (x == 4))
-        //             exp = 8'hFF;
-        //         else
-        //             exp = 8'h00;
-        //         if (got !== exp) begin
-        //             $display("FAIL SOBEL[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
-        //             errors = errors + 1;
-        //         end
-        //     end
-        // end
+        $display("--- Sobel output checks ---");
+        for (y = 0; y < IMG_H; y = y + 1) begin
+            for (x = 0; x < IMG_W; x = x + 1) begin
+                got = dut.dmem.ram[DST_SOBEL + y*IMG_W + x];
+                if ((y == 0) || (y == IMG_H-1) || (x == 0) || (x == IMG_W-1))
+                    exp = 8'h00;
+                else if ((x == 3) || (x == 4))
+                    exp = 8'hFF;
+                else
+                    exp = 8'h00;
+                if (got !== exp) begin
+                    $display("FAIL SOBEL[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
+                    errors = errors + 1;
+                end
+            end
+        end
 
-        // $display("--- Convolution identity output checks ---");
-        // for (y = 0; y < IMG_H; y = y + 1) begin
-        //     for (x = 0; x < IMG_W; x = x + 1) begin
-        //         got = dut.dmem.ram[DST_CONV + y*IMG_W + x];
-        //         if ((y == 0) || (y == IMG_H-1) || (x == 0) || (x == IMG_W-1))
-        //             exp = 8'h00;
-        //         else
-        //             exp = exp_gray(x);
-        //         if (got !== exp) begin
-        //             $display("FAIL CONV[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
-        //             errors = errors + 1;
-        //         end
-        //     end
-        // end
+        $display("--- Convolution identity output checks ---");
+        for (y = 0; y < IMG_H; y = y + 1) begin
+            for (x = 0; x < IMG_W; x = x + 1) begin
+                got = dut.dmem.ram[DST_CONV + y*IMG_W + x];
+                if ((y == 0) || (y == IMG_H-1) || (x == 0) || (x == IMG_W-1))
+                    exp = 8'h00;
+                else
+                    exp = exp_gray(x);
+                if (got !== exp) begin
+                    $display("FAIL CONV[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
+                    errors = errors + 1;
+                end
+            end
+        end
 
-        // $display("--- Maxpool output checks ---");
-        // for (y = 0; y < 4; y = y + 1) begin
-        //     for (x = 0; x < 4; x = x + 1) begin
-        //         got = dut.dmem.ram[DST_MAXP + y*4 + x];
-        //         exp = (x < 2) ? 8'h00 : 8'hFF;
-        //         if (got !== exp) begin
-        //             $display("FAIL MAXPOOL[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
-        //             errors = errors + 1;
-        //         end
-        //     end
-        // end
+        $display("--- Maxpool output checks ---");
+        for (y = 0; y < 4; y = y + 1) begin
+            for (x = 0; x < 4; x = x + 1) begin
+                got = dut.dmem.ram[DST_MAXP + y*4 + x];
+                exp = (x < 2) ? 8'h00 : 8'hFF;
+                if (got !== exp) begin
+                    $display("FAIL MAXPOOL[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
+                    errors = errors + 1;
+                end
+            end
+        end
 
-        // $display("--- Avgpool output checks ---");
-        // for (y = 0; y < 4; y = y + 1) begin
-        //     for (x = 0; x < 4; x = x + 1) begin
-        //         got = dut.dmem.ram[DST_AVGP + y*4 + x];
-        //         exp = (x < 2) ? 8'h00 : 8'hFF;
-        //         if (got !== exp) begin
-        //             $display("FAIL AVGPOOL[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
-        //             errors = errors + 1;
-        //         end
-        //     end
-        // end
+        $display("--- Avgpool output checks ---");
+        for (y = 0; y < 4; y = y + 1) begin
+            for (x = 0; x < 4; x = x + 1) begin
+                got = dut.dmem.ram[DST_AVGP + y*4 + x];
+                exp = (x < 2) ? 8'h00 : 8'hFF;
+                if (got !== exp) begin
+                    $display("FAIL AVGPOOL[%0d,%0d] exp=%02h got=%02h", x, y, exp, got);
+                    errors = errors + 1;
+                end
+            end
+        end
 
         $display("==============================================================");
         if (errors == 0)
@@ -187,14 +186,14 @@ module tb_ipu_system;
 
     always @(posedge clk) begin
         if (!reset) begin
-            $display("t = %0t | PC = %08h | INSTR = %08h | busy = %0b done = %0b | x11 = %08h x13 = %08h",
-            $time,
-            dut.dp.pc_f,
-            dut.instr,
-            dut.ipu_busy,
-            dut.ipu_done,
-            dut.dp.decode.rf.registers[11],
-            dut.dp.decode.rf.registers[13]);
+            $display("t=%0t | PC=%08h | INSTR=%08h | busy=%0b done=%0b | x11=%08h x13=%08h",
+                     $time,
+                     dut.dp.pc_f,
+                     dut.instr,
+                     dut.ipu_busy,
+                     dut.ipu_done,
+                     dut.dp.decode.rf.registers[11],
+                     dut.dp.decode.rf.registers[13]);
         end
     end
 
