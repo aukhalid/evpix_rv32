@@ -708,6 +708,7 @@ GDSII for Fabrication
 ```
 evpix_rv32/
 ├── README.md
+├── Makefile
 ├── asic/
 │   ├── flow/
 │   │   ├── rtl_files.mk
@@ -850,9 +851,8 @@ evpix_rv32/
 │       ├── tb_rv32i_ipu_custom.sv
 │       └── tb_rv32i_top.sv
 └── images/
-|    └── (90+ PNG/JPG documentation images — diagrams, ASIC layouts, FPGA results, etc.)
-└── Makefile
-└── README.md
+    └── (90+ images — diagrams, ASIC layouts, FPGA results, etc.)
+
 ```
 
 ---
